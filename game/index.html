@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FROST HARBOR — Stealth on a Frozen Dock</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <div id="stage">
+    <canvas id="game" width="960" height="720"></canvas>
+    <div id="topline">
+      <span class="pill">TIME <b id="hudTime">6:00</b></span>
+      <span class="pill green">CRATES <b id="hudCrates">0/3</b></span>
+      <span class="pill">STRIKES <b id="hudStrikes">● ● ●</b></span>
+      <span class="pill">FLARES <b id="hudFlares">2</b></span>
+    </div>
+    <div id="banner"></div>
+    <div id="overlay"></div>
+  </div>
+  <aside id="panel">
+    <h1>FROST HARBOR</h1>
+    <div class="sub">LEVEL 1 OF 3 &nbsp;•&nbsp; NIGHT 1 &nbsp;•&nbsp; FROZEN DOCK</div>
+
+    <div class="sec">
+      <h2>DETECTION</h2>
+      <div class="row"><span class="k">STATUS</span><span class="v amber" id="detectWord">CALM</span></div>
+      <div id="alarmBar">
+        <div class="seg" id="seg1"></div><div class="seg" id="seg2"></div>
+        <div class="seg" id="seg3"></div><div class="seg" id="seg4"></div>
+      </div>
+      <div id="alarmLabels"><span>CALM</span><span>UNEASY</span><span>HUNTED</span><span>ALARM</span></div>
+      <div class="row"><span class="k">VISIBILITY</span><span class="v" id="visWord">IN SHADOW</span></div>
+      <div class="row"><span class="k">NOISE</span><span class="v" id="noiseWord">SILENT</span></div>
+      <div class="row"><span class="k">SPOTTED</span><span class="v" id="spottedWord">0</span></div>
+      <div class="row"><span class="k">GHOST BONUS</span><span class="v green">+500 IF UNSEEN</span></div>
+    </div>
+
+    <div class="sec">
+      <h2>GOAL</h2>
+      <div style="font-size:13.5px;line-height:1.55;color:#d7e5f5" id="goalText">
+        Carry 3 crates to the gangway, then board the ship before dawn. Stay out of the cones and the searchlights.
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>GUARD ROSTER — PATROL</h2>
+      <div id="roster"></div>
+    </div>
+
+    <div class="sec">
+      <h2>LEGEND</h2>
+      <div id="legend">
+        <div><span class="sw" style="background:#ffe9a8"></span><b>SEARCHLIGHT:</b> seen from afar — cross between sweeps</div>
+        <div><span class="sw" style="background:#8b98a8"></span><b>FOG:</b> half-cover — slower, harder to spot</div>
+        <div><span class="sw" style="background:#d8a03a"></span><b>CRATE:</b> blocks sight — hide behind it</div>
+        <div><span class="sw" style="background:#3ddc74"></span><b>EXIT:</b> gangway to the ship</div>
+        <div><span class="sw" style="background:#ff5a4e"></span><b>GUARD:</b> vision cone — never cross it lit</div>
+        <div><span class="sw" style="background:#ff8c2e"></span><b>FLARE:</b> thrown light — guards go check it</div>
+      </div>
+    </div>
+
+    <div class="sec">
+      <h2>MINIMAP</h2>
+      <canvas id="minimap" width="292" height="150"></canvas>
+    </div>
+
+    <div class="sec">
+      <h2>CONTROLS</h2>
+      <div id="controls">
+        <b>WASD / Arrows</b> — move Kess<br>
+        <b>Shift</b> — sneak (slow, quiet, harder to see)<br>
+        <b>Click / F</b> — throw flare at mouse (2 per night)<br>
+        <b>R</b> — restart night &nbsp;•&nbsp; <b>M</b> — mute sound
+      </div>
+      <button id="muteBtn">SOUND: ON — CLICK TO MUTE (M)</button>
+      <div id="hint">Tip: fog halves a guard's sight. Searchlights sweep on a fixed cycle — watch the countdown ring on each tower and cross between sweeps.</div>
+    </div>
+  </aside>
+</div>
+<script src="level.js"></script>
+<script src="vision.js"></script>
+<script src="audio.js"></script>
+<script src="guard.js"></script>
+<script src="player.js"></script>
+<script src="hud.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
