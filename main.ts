@@ -2,8 +2,13 @@
 // Copies game/ and screenshots/ into the output directory and writes
 // dossier.json with buildDossier from vendor/makefun-game.ts.
 import { cpSync, existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
-import { join } from 'node:path';
+import { dirname, join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { buildDossier } from './vendor/makefun-game.ts';
+
+// Repo root derived from this file's location, never from process.cwd():
+// the grader runs `node /bot/main.ts` from an arbitrary working directory.
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)));
 
 const outDir = process.env.MAKEFUN_OUTPUT_DIR || '/output';
 
@@ -18,9 +23,9 @@ function clearDir(dir: string): void {
 }
 
 clearDir(outDir);
-cpSync('game', join(outDir, 'game'), { recursive: true });
-if (existsSync('screenshots')) {
-  cpSync('screenshots', join(outDir, 'screenshots'), { recursive: true });
+cpSync(join(repoRoot, 'game'), join(outDir, 'game'), { recursive: true });
+if (existsSync(join(repoRoot, 'screenshots'))) {
+  cpSync(join(repoRoot, 'screenshots'), join(outDir, 'screenshots'), { recursive: true });
 }
 writeFileSync(
   join(outDir, 'dossier.json'),
